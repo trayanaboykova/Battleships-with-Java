@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.092s</div>
+<div class="counter">0.068s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">start</td>
-<td class="success">0.092s</td>
+<td class="success">0.068s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -100,10 +100,95 @@ G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
+
+Enter the coordinates of the Aircraft Carrier (5 cells):
+
 &gt; F3 F7
-Length: 5
-Parts: F3 F4 F5 F6 F7
+
+  1 2 3 4 5 6 7 8 9 10
+A ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+B ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+C ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+F ~ ~ O O O O O ~ ~ ~
+G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+Enter the coordinates of the Battleship (4 cells):
+
+&gt; A1 D1
+
+  1 2 3 4 5 6 7 8 9 10
+A O ~ ~ ~ ~ ~ ~ ~ ~ ~
+B O ~ ~ ~ ~ ~ ~ ~ ~ ~
+C O ~ ~ ~ ~ ~ ~ ~ ~ ~
+D O ~ ~ ~ ~ ~ ~ ~ ~ ~
+E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+F ~ ~ O O O O O ~ ~ ~
+G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+Enter the coordinates of the Submarine (3 cells):
+
+&gt; J7 J10
+Error! Wrong length of the Submarine! Try again:
+
+&gt; J10 J8
+
+  1 2 3 4 5 6 7 8 9 10
+A O ~ ~ ~ ~ ~ ~ ~ ~ ~
+B O ~ ~ ~ ~ ~ ~ ~ ~ ~
+C O ~ ~ ~ ~ ~ ~ ~ ~ ~
+D O ~ ~ ~ ~ ~ ~ ~ ~ ~
+E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+F ~ ~ O O O O O ~ ~ ~
+G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+J ~ ~ ~ ~ ~ ~ ~ O O O
+
+Enter the coordinates of the Cruiser (3 cells):
+
+&gt; B9 D8
+Error! Wrong ship location! Try again:
+
+&gt; B9 D9
+
+  1 2 3 4 5 6 7 8 9 10
+A O ~ ~ ~ ~ ~ ~ ~ ~ ~
+B O ~ ~ ~ ~ ~ ~ ~ O ~
+C O ~ ~ ~ ~ ~ ~ ~ O ~
+D O ~ ~ ~ ~ ~ ~ ~ O ~
+E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+F ~ ~ O O O O O ~ ~ ~
+G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+J ~ ~ ~ ~ ~ ~ ~ O O O
+
+Enter the coordinates of the Destroyer (2 cells):
+
+&gt; E6 D6
+Error! You placed it too close to another one. Try again:
+
+&gt; I2 J2
+
+  1 2 3 4 5 6 7 8 9 10
+A O ~ ~ ~ ~ ~ ~ ~ ~ ~
+B O ~ ~ ~ ~ ~ ~ ~ O ~
+C O ~ ~ ~ ~ ~ ~ ~ O ~
+D O ~ ~ ~ ~ ~ ~ ~ O ~
+E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+F ~ ~ O O O O O ~ ~ ~
+G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+I ~ O ~ ~ ~ ~ ~ ~ ~ ~
+J ~ O ~ ~ ~ ~ ~ O O O
 ?[1;31m
 Start test 2?[0m
   1 2 3 4 5 6 7 8 9 10
@@ -117,12 +202,11 @@ G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
-&gt; A1 D1
-Length: 4
-Parts: A1 B1 C1 D1
-?[1;31m
-Start test 3?[0m
+
+Enter the coordinates of the Aircraft Carrier (5 cells):
+
+&gt; J3 J7
+
   1 2 3 4 5 6 7 8 9 10
 A ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 B ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
@@ -133,141 +217,80 @@ F ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
-&gt; C4 C2
-Length: 3
-Parts: C2 C3 C4
-?[1;31m
-Start test 4?[0m
+J ~ ~ O O O O O ~ ~ ~
+
+Enter the coordinates of the Battleship (4 cells):
+
+&gt; C8 B8
+Error! Wrong length of the Battleship! Try again:
+
+&gt; C8 F8
+
   1 2 3 4 5 6 7 8 9 10
 A ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 B ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-C ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-F ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+C ~ ~ ~ ~ ~ ~ ~ O ~ ~
+D ~ ~ ~ ~ ~ ~ ~ O ~ ~
+E ~ ~ ~ ~ ~ ~ ~ O ~ ~
+F ~ ~ ~ ~ ~ ~ ~ O ~ ~
 G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
-&gt; F4 E4
-Length: 2
-Parts: E4 F4
-?[1;31m
-Start test 5?[0m
+J ~ ~ O O O O O ~ ~ ~
+
+Enter the coordinates of the Submarine (3 cells):
+
+&gt; A1 C2
+Error! Wrong ship location! Try again:
+
+&gt; A1 C1
+
   1 2 3 4 5 6 7 8 9 10
-A ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-B ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-C ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-F ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+A O ~ ~ ~ ~ ~ ~ ~ ~ ~
+B O ~ ~ ~ ~ ~ ~ ~ ~ ~
+C O ~ ~ ~ ~ ~ ~ O ~ ~
+D ~ ~ ~ ~ ~ ~ ~ O ~ ~
+E ~ ~ ~ ~ ~ ~ ~ O ~ ~
+F ~ ~ ~ ~ ~ ~ ~ O ~ ~
 G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
-&gt; G8 G10
-Length: 3
-Parts: G8 G9 G10
-?[1;31m
-Start test 6?[0m
+J ~ ~ O O O O O ~ ~ ~
+
+Enter the coordinates of the Cruiser (3 cells):
+
+&gt; H1 H3
+
   1 2 3 4 5 6 7 8 9 10
-A ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-B ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-C ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-F ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+A O ~ ~ ~ ~ ~ ~ ~ ~ ~
+B O ~ ~ ~ ~ ~ ~ ~ ~ ~
+C O ~ ~ ~ ~ ~ ~ O ~ ~
+D ~ ~ ~ ~ ~ ~ ~ O ~ ~
+E ~ ~ ~ ~ ~ ~ ~ O ~ ~
+F ~ ~ ~ ~ ~ ~ ~ O ~ ~
 G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+H O O O ~ ~ ~ ~ ~ ~ ~
 I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
-&gt; A3 D5
-Error!
-?[1;31m
-Start test 7?[0m
+J ~ ~ O O O O O ~ ~ ~
+
+Enter the coordinates of the Destroyer (2 cells):
+
+&gt; G2 E2
+Error! Wrong length of the Destroyer! Try again:
+
+&gt; B5 C5
+
   1 2 3 4 5 6 7 8 9 10
-A ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-B ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-C ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-F ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+A O ~ ~ ~ ~ ~ ~ ~ ~ ~
+B O ~ ~ ~ O ~ ~ ~ ~ ~
+C O ~ ~ ~ O ~ ~ O ~ ~
+D ~ ~ ~ ~ ~ ~ ~ O ~ ~
+E ~ ~ ~ ~ ~ ~ ~ O ~ ~
+F ~ ~ ~ ~ ~ ~ ~ O ~ ~
 G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+H O O O ~ ~ ~ ~ ~ ~ ~
 I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
-&gt; F6 C2
-Error!
-?[1;31m
-Start test 8?[0m
-  1 2 3 4 5 6 7 8 9 10
-A ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-B ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-C ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-F ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
-&gt; A0 A2
-Error!
-?[1;31m
-Start test 9?[0m
-  1 2 3 4 5 6 7 8 9 10
-A ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-B ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-C ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-F ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
-&gt; B9 B11
-Error!
-?[1;31m
-Start test 10?[0m
-  1 2 3 4 5 6 7 8 9 10
-A ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-B ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-C ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-F ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
-&gt; J5 M5
-Error!
-?[1;31m
-Start test 11?[0m
-  1 2 3 4 5 6 7 8 9 10
-A ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-B ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-C ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-D ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-E ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-F ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-G ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-H ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-J ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-Enter the coordinates of the ship:
-&gt; L13 N18
-Error!
+J ~ ~ O O O O O ~ ~ ~
 </pre>
 </span>
 </div>
@@ -279,7 +302,7 @@ Error!
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.5</a> at Oct 1, 2025, 4:09:24 PM</p>
+<a href="http://www.gradle.org">Gradle 8.5</a> at Oct 1, 2025, 4:25:44 PM</p>
 </div>
 </div>
 </body>
