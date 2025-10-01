@@ -25,11 +25,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // 1) Create and show empty field
-        char[][] field = createField();
-        printField(field);
+        // 1) Create boards
+        char[][] real = createField(); // contains ships + X/M
+        char[][] fog  = createField(); // contains only ~ + X/M (never shows O)
 
-        // 2) Place all ships with validation
+        // 2) Show empty real field before placement
+        printField(real);
+
+        // 3) Place all ships with validation
         for (Ship ship : SHIPS) {
             System.out.printf("%nEnter the coordinates of the %s (%d cells):%n%n",
                     ship.name, ship.length);
@@ -58,51 +61,59 @@ public class Main {
                 }
 
                 // no overlap / no touching
-                if (!canPlace(field, a, b)) {
+                if (!canPlace(real, a, b)) {
                     System.out.printf("Error! You placed it too close to another one. Try again:%n%n");
                     continue;
                 }
 
-                // place and print
-                place(field, a, b);
+                // place on real board and print it
+                place(real, a, b);
                 System.out.println();
-                printField(field);
+                printField(real);
                 break;
             }
         }
 
-        // 3) Stage 3: one shot, then stop
+        // 4) Start game: show fog board (not the real one)
         System.out.println("\nThe game starts!\n");
-        printField(field);
+        printField(fog);
 
+        // 5) One shot with validation; keep asking until a valid coordinate
         System.out.println("\nTake a shot!\n");
         Point shot;
         while (true) {
             String s = sc.nextLine().trim();
             shot = parse(s);
             if (shot == null) {
-                System.out.println("\nError! You entered the wrong coordinates! Try again:\n");
+                // Stage shows variant without "the" in examples for this step
+                System.out.println("\nError! You entered wrong coordinates! Try again:\n");
                 continue;
             }
             break;
         }
 
-        // 4) Apply shot result
-        char cell = field[shot.row][shot.col];
+        // 6) Apply shot to both boards
+        char cell = real[shot.row][shot.col];
+        boolean hit = false;
         if (cell == SHIP) {
-            field[shot.row][shot.col] = HIT;
+            real[shot.row][shot.col] = HIT;
+            fog [shot.row][shot.col] = HIT;
+            hit = true;
         } else if (cell == FOG) {
-            field[shot.row][shot.col] = MISS;
-        } // If already X or M (not expected here), leave as is.
-
-        System.out.println();
-        printField(field);
-        System.out.println();
-        if (field[shot.row][shot.col] == HIT) {
-            System.out.println("You hit a ship!");
+            real[shot.row][shot.col] = MISS;
+            fog [shot.row][shot.col] = MISS;
         } else {
-            System.out.println("You missed!");
+            // Already X/M (not expected in this stage with single shot), mirror to fog
+            fog[shot.row][shot.col] = real[shot.row][shot.col];
         }
+
+        // 7) Print fog field (with result), message, then uncovered real field
+        System.out.println();
+        printField(fog);
+        System.out.println();
+        System.out.println(hit ? "You hit a ship!" : "You missed!");
+        System.out.println();
+        printField(real);
     }
 
     /* ---------------- field helpers ---------------- */
