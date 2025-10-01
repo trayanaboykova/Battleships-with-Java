@@ -12,12 +12,12 @@ public class Main {
     static final char HIT  = 'X';
     static final char MISS = 'M';
 
-    static final Ship[] SHIPS_TO_PLACE = {
-            new Ship("Aircraft Carrier", 5),
-            new Ship("Battleship", 4),
-            new Ship("Submarine", 3),
-            new Ship("Cruiser", 3),
-            new Ship("Destroyer", 2)
+    static final ShipSpec[] SHIPS_TO_PLACE = {
+            new ShipSpec("Aircraft Carrier", 5),
+            new ShipSpec("Battleship", 4),
+            new ShipSpec("Submarine", 3),
+            new ShipSpec("Cruiser", 3),
+            new ShipSpec("Destroyer", 2)
     };
 
     /* --------------- entry point --------------- */
@@ -25,18 +25,84 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // Boards
-        char[][] real = createField(); // ships + X/M
-        char[][] fog  = createField(); // ~ + X/M (never shows O)
+        // Create players
+        Player p1 = new Player("Player 1");
+        Player p2 = new Player("Player 2");
 
-        // Keep the placed ships with their coordinates for sink detection
-        List<Ship> fleet = new ArrayList<>();
+        // Player 1 placement
+        System.out.println(p1.name + ", place your ships on the game field\n");
+        printField(p1.real);
+        placeAllShips(sc, p1);
+        promptPassTurn(sc);
 
-        // 1) Show empty field and place ships
-        printField(real);
-        for (Ship plan : SHIPS_TO_PLACE) {
+        // Player 2 placement
+        System.out.println(p2.name + ", place your ships to the game field\n");
+        printField(p2.real);
+        placeAllShips(sc, p2);
+        promptPassTurn(sc);
+
+        // Game loop
+        Player current = p1;
+        Player opponent = p2;
+
+        while (true) {
+            // Show opponent fog on top and my real at bottom
+            printField(opponent.fog);
+            System.out.println("---------------------");
+            printField(current.real);
+            System.out.println();
+            System.out.println(current.name + ", it's your turn:\n");
+
+            Point shot = readShot(sc);
+            // Resolve shot on opponent's boards
+            char before = opponent.real[shot.row][shot.col];
+
+            if (before == SHIP) {
+                opponent.real[shot.row][shot.col] = HIT;
+                opponent.fog[shot.row][shot.col]  = HIT;
+
+                Ship hitShip = findShipByCell(opponent.fleet, shot);
+                boolean sunkNow = hitShip != null && isSunk(opponent.real, hitShip);
+
+                if (allShipsSunk(opponent.real, opponent.fleet)) {
+                    System.out.println("You sank the last ship. You won. Congratulations!");
+                    break;
+                } else if (sunkNow) {
+                    System.out.println("You sank a ship!");
+                    promptPassTurn(sc);
+                } else {
+                    System.out.println("You hit a ship!");
+                    promptPassTurn(sc);
+                }
+            } else {
+                // MISS, HIT, MISS again: still show miss or hit messages per rules
+                if (before == HIT) {
+                    // Re-hit same cell = still "hit"
+                    opponent.fog[shot.row][shot.col] = HIT;
+                    System.out.println("You hit a ship!");
+                } else {
+                    // before == FOG or before == MISS
+                    opponent.real[shot.row][shot.col] = MISS;
+                    opponent.fog[shot.row][shot.col]  = MISS;
+                    System.out.println("You missed!");
+                }
+                promptPassTurn(sc);
+            }
+
+            // swap players
+            Player tmp = current;
+            current = opponent;
+            opponent = tmp;
+        }
+    }
+
+    /* ---------------- placement pipeline ---------------- */
+
+    static void placeAllShips(Scanner sc, Player p) {
+        for (ShipSpec spec : SHIPS_TO_PLACE) {
             System.out.printf("%nEnter the coordinates of the %s (%d cells):%n%n",
-                    plan.name, plan.length);
+                    spec.name, spec.length);
+
             while (true) {
                 String line = sc.nextLine().trim();
                 String[] parts = line.split("\\s+");
@@ -48,107 +114,40 @@ public class Main {
                 Point a = parse(parts[0]);
                 Point b = parse(parts[1]);
 
-                // basic location checks
                 if (a == null || b == null || !isStraight(a, b)) {
                     System.out.printf("Error! Wrong ship location! Try again:%n%n");
                     continue;
                 }
 
-                // length must match the ship
                 int len = segmentLength(a, b);
-                if (len != plan.length) {
-                    System.out.printf("Error! Wrong length of the %s! Try again:%n%n", plan.name);
+                if (len != spec.length) {
+                    System.out.printf("Error! Wrong length of the %s! Try again:%n%n", spec.name);
                     continue;
                 }
 
-                // no overlap / no touching
-                if (!canPlace(real, a, b)) {
+                if (!canPlace(p.real, a, b)) {
                     System.out.printf("Error! You placed it too close to another one. Try again:%n%n");
                     continue;
                 }
 
-                // Build the actual ship with all its cells, place on board, remember it
-                Ship placed = new Ship(plan.name, plan.length);
+                Ship placed = new Ship(spec.name, spec.length);
                 placed.cells = enumerateCells(a, b);
-                place(real, placed);
-                fleet.add(placed);
+                place(p.real, placed);
+                p.fleet.add(placed);
 
                 System.out.println();
-                printField(real);
+                printField(p.real);
                 break;
-            }
-        }
-
-        // 2) Game loop with fog of war
-        System.out.println("\nThe game starts!\n");
-        printField(fog);
-        System.out.println("\nTake a shot!\n");
-
-        while (true) {
-            String s = sc.nextLine().trim();
-            Point shot = parse(s);
-            if (shot == null) {
-                // (Stage’s example wording)
-                System.out.println("\nError! You entered wrong coordinates! Try again:\n");
-                continue;
-            }
-
-            char before = real[shot.row][shot.col]; // what was there
-            boolean wasShipCell = (before == SHIP);
-            boolean wasFogCell  = (before == FOG);
-
-            // Mark results on both boards; repeated shots behave the same message-wise
-            if (wasShipCell) {
-                real[shot.row][shot.col] = HIT;
-                fog [shot.row][shot.col] = HIT;
-            } else if (wasFogCell) {
-                real[shot.row][shot.col] = MISS;
-                fog [shot.row][shot.col] = MISS;
-            } else {
-                // Already X or M; mirror to fog anyway to keep boards consistent
-                fog[shot.row][shot.col] = real[shot.row][shot.col];
-            }
-
-            // Show current (fog) view
-            System.out.println();
-            printField(fog);
-            System.out.println();
-
-            // Decide message
-            if (before == SHIP) {
-                // New hit: check if this specific ship is now sunk
-                Ship hitShip = findShipByCell(fleet, shot);
-                if (hitShip != null && isSunk(real, hitShip)) {
-                    // Remove from remaining? Not necessary; we’ll check victory via all-ship scan
-                    if (allShipsSunk(real, fleet)) {
-                        System.out.println("You sank the last ship. You won. Congratulations!");
-                        break;
-                    } else {
-                        System.out.println("You sank a ship! Specify a new target:");
-                    }
-                } else {
-                    // Either not fully sunk yet, or it was a repeated hit cell (handled below)
-                    System.out.println("You hit a ship! Try again:");
-                }
-            } else if (before == HIT) {
-                // Re-shot an already hit cell → still “hit” message
-                System.out.println("You hit a ship! Try again:");
-            } else if (before == MISS) {
-                // Re-shot an already missed cell → still “missed” message
-                System.out.println("You missed. Try again:");
-            } else {
-                // Fresh miss
-                System.out.println("You missed. Try again:");
             }
         }
     }
 
-    /* ---------------- field helpers ---------------- */
+    /* ---------------- UI helpers ---------------- */
 
-    static char[][] createField() {
-        char[][] f = new char[SIZE][SIZE];
-        for (int r = 0; r < SIZE; r++) Arrays.fill(f[r], FOG);
-        return f;
+    static void promptPassTurn(Scanner sc) {
+        System.out.println("\nPress Enter and pass the move to another player");
+        sc.nextLine(); // wait for Enter
+        System.out.println();
     }
 
     static void printField(char[][] f) {
@@ -170,7 +169,16 @@ public class Main {
         }
     }
 
-    /* ---------------- placement & validation ---------------- */
+    static Point readShot(Scanner sc) {
+        while (true) {
+            String s = sc.nextLine().trim();
+            Point p = parse(s);
+            if (p != null) return p;
+            System.out.println("\nError! You entered wrong coordinates! Try again:\n");
+        }
+    }
+
+    /* ---------------- parsing & validation ---------------- */
 
     static Point parse(String s) {
         if (s == null || s.length() < 2) return null;
@@ -199,14 +207,13 @@ public class Main {
         int c1 = Math.min(a.col, b.col);
         int c2 = Math.max(a.col, b.col);
 
-        // Check overlap and adjacency (8-neighborhood) around each intended cell
         for (int r = r1; r <= r2; r++) {
             for (int c = c1; c <= c2; c++) {
                 // only test cells that lie on the ship's straight line
                 if (a.row != b.row && c != a.col) continue; // vertical ship
                 if (a.col != b.col && r != a.row) continue; // horizontal ship
 
-                // Check 8 neighbors for any existing ship
+                // Check 8-neighborhood for any existing ship
                 for (int dr = -1; dr <= 1; dr++) {
                     for (int dc = -1; dc <= 1; dc++) {
                         int nr = r + dr, nc = c + dc;
@@ -267,6 +274,18 @@ public class Main {
 
     /* ---------------- data types ---------------- */
 
+    static class Player {
+        final String name;
+        final char[][] real; // true board
+        final char[][] fog;  // opponent's view of this board
+        final List<Ship> fleet = new ArrayList<>();
+        Player(String name) {
+            this.name = name;
+            this.real = createField();
+            this.fog  = createField();
+        }
+    }
+
     static class Point {
         final int row, col;
         Point(int r, int c) { this.row = r; this.col = c; }
@@ -277,5 +296,17 @@ public class Main {
         final int length;
         List<Point> cells = new ArrayList<>();
         Ship(String name, int length) { this.name = name; this.length = length; }
+    }
+
+    static class ShipSpec {
+        final String name;
+        final int length;
+        ShipSpec(String name, int length) { this.name = name; this.length = length; }
+    }
+
+    static char[][] createField() {
+        char[][] f = new char[SIZE][SIZE];
+        for (int r = 0; r < SIZE; r++) Arrays.fill(f[r], FOG);
+        return f;
     }
 }

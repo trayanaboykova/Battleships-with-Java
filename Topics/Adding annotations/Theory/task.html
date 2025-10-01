@@ -1,0 +1,110 @@
+<div class="step-text">
+<p>An <strong>annotation</strong> is a special Java instrument that provides information about a program. Its main goal is to make programmers' lives easier. To give them a more formal definition, annotations are a form of metadata, which means they are not part of the program itself. </p>
+<p>You can mark classes, methods, fields, variables, and other parts of a program with annotations. When you do it, annotations provide information for the compiler, for some development tools, or for frameworks and libraries at runtime.</p>
+<p>Now that you know how useful they are, you have no other choice but to make friends with annotations!</p>
+<h5 id="annotation-where-are-you">Annotation, where are you?</h5>
+<p>But do you understand that the day has come, and what is in front of you is your first annotation? All annotations start with the <code class="language-java">@</code> symbol followed by the annotation name, and they are usually marked with a color different from the code.</p>
+<p>Here is an example:</p>
+<pre><code class="language-java">@Override
+public void printName() {
+    System.out.println(this.name);
+}</code></pre>
+<p><code class="language-java">@Override</code> is an annotation here.</p>
+<p> </p>
+<p></p>
+<div class="alert alert-primary"><p>You can also mark a class/method/field/etc. with two or more annotations!</p></div>
+<p></p>
+<p> </p>
+<h5 id="built-in-annotations">Built-in annotations</h5>
+<p>Java has several <a class="theory-lookup not-relevant" href="/learn/step/3622" target="_blank" title="In Java, built-in annotations are pre-defined annotations that come with the Java Development Kit (JDK). | They provide important information to the compiler, development tools, frameworks, and libraries at runtime. Some built-in annotations contain elements for which you can provide values. For example, the `@Deprecated` annotation indicates that a class, method, or field is deprecated and should no longer be used. Java has several built-in annotations, including `@Override`, `@Deprecated`, and `@SuppressWarnings`. If you want to use other annotations, you will need to include a library or framework or even create your own annotation.">built-in annotations</a>. If you want to use other annotations, you will need to include libraries or frameworks or even create your own annotations.</p>
+<p>But first, let's discuss the three main built-in annotations that were presented to the world in Java 5:</p>
+<ul><li><p><code class="language-java">@Deprecated</code> is a simple annotation which means that the marked method (or class, field, and so on) is <a class="theory-lookup not-relevant" href="/learn/step/3622" target="_blank" title="In Java, a deprecated feature is a class, method, or field that is officially declared as obsolete and may be removed in a future version. | The use of deprecated features is discouraged, but they are typically still functional in the current version of the software. Developers are encouraged to update their code to use non-deprecated alternatives. In the example provided, the method has been deprecated since version 5.3 of the library and will be removed in the next release.">deprecated</a>, that is, obsolete and should no longer be used. This annotation causes a compiler warning if the code is used.</p><pre><code class="language-java">@Deprecated
+public void oldMethod() {
+    System.out.println("Hello!");
+}</code></pre></li></ul>
+<ul><li><p><code class="language-java">@SuppressWarnings</code> commands the compiler to disable some compile-time warnings. You specify in parameters which warnings you don't want to see, for example:</p><pre><code class="language-java">@SuppressWarnings("unused")
+public void printHello() {
+    System.out.println("Hello!");
+}</code></pre></li></ul>
+<p>Imagine you created a method <code class="language-java">printHello</code> but didn't use it.  The compiler doesn't like unused methods but with the <code class="language-java">@SuppressWarnings("unused")</code> annotation where "unused" is a parameter, you can disable that compile warning. This annotation can be applied to classes, methods, fields, <a class="theory-lookup not-relevant" href="/learn/step/3622" target="_blank" title="In Java, a local variable is a type of variable that is declared within a method or a block of code, and its scope is limited to that method or block. | It is not accessible from outside the method or block in which it is declared. Local variables must be initialized before they can be used, and they do not have a default value. They are typically used to store temporary values or intermediate results within a method. Unlike instance and class variables, local variables are not stored in the object or class, but rather on the stack.">local variables</a>, and other parts of the program.</p>
+<ul><li><p><code class="language-java">@Override</code> marks a method that overrides a superclass method. This annotation can only be applied to methods. We will consider it in detail in a separate topic about overriding methods.</p></li></ul>
+<h5 id="annotation-elements">Annotation elements</h5>
+<p>Some annotations have <strong>elements</strong>, where an element is similar to an attribute or a parameter. You have already seen an example of an element in a previous section. Let's give it a closer look.</p>
+<p>Remember the annotation called <code class="language-java">@SuppressWarnings</code>? It takes the type of warning you want to disable as a parameter.</p>
+<pre><code class="language-java">@SuppressWarnings("unused") 
+public void printHello() {
+    System.out.println("Hello!");
+}</code></pre>
+<p>If you show some curiosity and look inside the <code class="language-java">@SuppressWarnings</code> annotation, you will find out that it has only one element named<strong> </strong><code class="language-java">value</code>. Because the element is just one <em>and</em> is called <code class="language-java">value</code>, it can be omitted, but the full definition will look like this:</p>
+<pre><code class="language-java">@SuppressWarnings(value = "unused")
+public void printHello() {
+    System.out.println("Hello!");
+}</code></pre>
+<p> </p>
+<p></p>
+<div class="alert alert-primary"><p>Pay attention that the full definition could be omitted for a field named <strong>"value"</strong> only. For other field names, the full definition is required.</p></div>
+<p></p>
+<p> </p>
+<p>An annotation element can also be an array. In fact, the actual type of <code class="language-java">value</code> in<code class="language-java">@SuppressWarnings</code> annotation is <code class="language-java">String[]</code>:</p>
+<pre><code class="language-java">@SuppressWarnings({"unused", "deprecation"})
+public void printHello() { ... }
+</code></pre>
+<p> <code class="language-java">"deprecation"</code>, as you might have guessed from the name, instructs the compiler to suppress warnings about the use of deprecated code.</p>
+<p>Finally, the last thing you need to know is that some annotations have a <a class="theory-lookup not-relevant" href="/learn/step/3622" target="_blank" title="In Java, a default value is a value that is automatically assigned to a variable, field, or array element if no explicit initial value is provided. | For example, an array of a primitive type is initialized with default values. Variables of type boolean are initialized to false, while numeric types are initialized to zero. For object reference types, the default value is null. When creating an object of a class, if no constructor is defined, the compiler automatically provides a default no-argument constructor that initializes all fields with their default values. However, if a specific constructor is defined, the default constructor will not be created.">default value</a> for an element, and some don't.</p>
+<pre><code class="language-java">@SuppressWarnings // wrong syntax, there is no default value!
+public void printHello() {
+    System.out.println("Hello!");
+}</code></pre>
+<p>For example, <code class="language-java">@SuppressWarnings</code> doesn't have a default value, so you can't skip it.</p>
+<h5 id="deprecated-annotation"> <code class="language-java">@Deprecated</code> annotation</h5>
+<p>For many years the <code class="language-java">@Deprecated</code> annotation didn't have any elements, but starting from Java 9 it has two: <code class="language-java">since</code> and <code class="language-java">forRemoval</code>. We will quickly break them down because there is a big chance you will meet them in practice.</p>
+<ul><li><p><code class="language-java">since</code> requires the version (String) in which the annotated element has become deprecated. The default value is an empty string.</p></li><li><p><code class="language-java">forRemoval</code> indicates whether the annotated element is to be removed in a future version. The default value is <code class="language-java">false</code>.</p></li></ul>
+<pre><code class="language-java">@Deprecated(since = "5.3", forRemoval = true)
+public void printHello() {
+    System.out.println("Hello!");
+}</code></pre>
+<p>The example above means that the <code class="language-java">printHello</code> method has been deprecated since version 5.3 of our library and it will be removed in the next release.</p>
+<h5 id="wow-a-custom-annotation">Wow, a custom annotation </h5>
+<p>Fear not: we won't create any new annotations in this topic. But we will look into two annotations from external sources. <br/>Both the <code class="language-java">@NotNull</code> and <code class="language-java">@Range</code> annotations mark classes, fields, methods, and parameters.</p>
+<p>The <code class="language-java">@NotNull</code> annotation indicates either of the following two options:</p>
+<ul><li><p>a variable cannot be <code class="language-java">null</code>;</p></li><li><p>a method should not return <code class="language-java">null</code>.</p></li></ul>
+<p>And the <code class="language-java">@Range</code> annotation indicates either of the following options:</p>
+<ul><li><p>a variable always belongs to the specified range;</p></li><li><p>a method returns an integer number that belongs to the specified range.</p></li></ul>
+<p>Now let's look at our class called <code class="language-java">GameCharacter</code>:</p>
+<pre><code class="language-java">class GameCharacter {
+
+    @NotNull
+    private String login;
+
+    @Range(min = 1, max = 100)
+    private int level = 1;
+
+    public GameCharacter(
+            @NotNull String login,
+            @Range(min = 1, max = 100) int level) {
+
+        this.login = login;
+        this.level = level;
+    }
+
+    @NotNull
+    public String getLogin() {
+        return login;
+    }
+
+    @Range(min = 1, max = 100)
+    public int getLevel() {
+        return level;
+    }
+}
+</code></pre>
+<p>Here these annotations will help you by showing warnings if <code class="language-java">login</code> contains <code class="language-java">null</code>, or if the <code class="language-java">level</code> of your character is less than 1 or more than 100. </p>
+<p> </p>
+<p></p>
+<div class="alert alert-primary"><p> <code class="language-java">@NotNull</code> is taken from <a href="https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html" rel="noopener noreferrer nofollow" target="_blank">JetBrains</a> and <code class="language-java">@Range</code> is taken from the popular framework Hibernate.</p></div>
+<p></p>
+<p> </p>
+<h5 id="conclusion">Conclusion</h5>
+<p>In this topic, you finally learned about annotations, and now you know that their main goal is to provide some important information to the compiler, development tools, frameworks, and libraries at runtime. Some annotations contain elements for which you can provide values. You also learned about the three built-in annotations and looked at a couple of examples of custom annotations. And in the next topic, you will learn how to create them yourself.</p>
+<p>In real-life programming, you will meet plenty of different annotations, but there is no reason to be afraid: they are here to make your life easier, and you can always find the explanations you need in documentation. </p>
+</div>
