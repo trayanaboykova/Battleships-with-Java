@@ -1,0 +1,17 @@
+type: choice
+is_multiple_choice: true
+options:
+  - text: '... same name as a method in the base class'
+  - text: '... same or more restrictive access modifier than the method in the base
+    class'
+  - text: '...  same return type (or its subclass)'
+  - text: '... annotation @Override'
+  - text: '... same argument list as a method in the base class'
+files:
+  - name: src/Task.java
+    visible: true
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/2197#comment
+status: Solved
+record: -1
+local_check: false

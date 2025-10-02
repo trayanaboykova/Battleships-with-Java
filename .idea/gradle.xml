@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -17,9 +18,20 @@
             <option value="$PROJECT_DIR$/Battleship with Java/task/build/reports/tests" />
             <option value="$PROJECT_DIR$/Battleship with Java/task/build/test-results" />
             <option value="$PROJECT_DIR$/Battleship with Java/task/build/tmp" />
+            <option value="$PROJECT_DIR$/Topics/Abstract class/Correct statements" />
+            <option value="$PROJECT_DIR$/Topics/Abstract class/Features of an abstract method" />
+            <option value="$PROJECT_DIR$/Topics/Abstract class/IntBinaryOperation" />
+            <option value="$PROJECT_DIR$/Topics/Abstract class/Shape hierarchy" />
+            <option value="$PROJECT_DIR$/Topics/Abstract class/Theory" />
             <option value="$PROJECT_DIR$/Topics/Adding annotations/Creating and invoking methods in Animal and Dog classes" />
             <option value="$PROJECT_DIR$/Topics/Adding annotations/Rules of annotations" />
             <option value="$PROJECT_DIR$/Topics/Adding annotations/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Method overriding/Overriding rules" />
+            <option value="$PROJECT_DIR$/Topics/Method overriding/Saying animals" />
+            <option value="$PROJECT_DIR$/Topics/Method overriding/Shapes area" />
+            <option value="$PROJECT_DIR$/Topics/Method overriding/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Method overriding/Vroom vroom  A tale of two wheels" />
+            <option value="$PROJECT_DIR$/Topics/Method overriding/Which methods will be overridden" />
             <option value="$PROJECT_DIR$/util" />
           </set>
         </option>
